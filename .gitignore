@@ -1,5 +1,8 @@
 testresources/
 
+# Ignore all databases as they will be created by the code
+*.db
+
 # Visual Studio Redistribution Installer
 .vs/
 
