@@ -1,8 +1,12 @@
 import sqlite3
+from db import db
 
 
-class ItemModel(object):
+class ItemModel(db.Model):
     """docstring for ItemModel"""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    price = db.Column(db.Float(precision=2))
 
     def __init__(self, name, price):
         self.name = name
@@ -13,15 +17,7 @@ class ItemModel(object):
 
     @classmethod
     def find_by_name(cls, name):
-        connection = sqlite3.connect('data.db')
-        cursor = connection.cursor()
-        query = 'SELECT * FROM ITEMS WHERE name = ?'
-        result = cursor.execute(query, (name,))
-        row = result.fetchone()
-        connection.close()
-
-        if row:
-            return cls(*row)
+        return ItemModel.query.filter_by(name=name, id=1)
 
     def insert(self):
         connection = sqlite3.connect('data.db')

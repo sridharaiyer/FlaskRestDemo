@@ -1,7 +1,7 @@
 {
 	"info": {
 		"name": "FlaskRestDemo",
-		"_postman_id": "c728e73b-7354-4d82-93b5-cf4b329b09e6",
+		"_postman_id": "5e6b327b-76a0-4490-822f-fb305d372c32",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,20 +13,15 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://127.0.0.1:5000/items",
-					"protocol": "http",
+					"raw": "{{url}}/items",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"items"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -37,26 +32,21 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjEyMzE1NDIsImlhdCI6MTUyMTIzMTI0MiwibmJmIjoxNTIxMjMxMjQyLCJpZGVudGl0eSI6MX0.-o6zFFIzk7AqBvu7NWyTl04nu1sAVpbpgDnFcxJBc4k"
+						"value": "JWT {{jwt_token}}"
 					}
 				],
 				"body": {},
 				"url": {
-					"raw": "http://127.0.0.1:5000/item/chair",
-					"protocol": "http",
+					"raw": "{{url}}/item/chair",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"item",
 						"chair"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -72,18 +62,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"price\": 12.55\n}"
+					"raw": "{\n  \"price\": 12.55\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/item/",
-					"protocol": "http",
+					"raw": "{{url}}/item/",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"item",
 						""
@@ -105,21 +90,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"price\": 12.55\n}"
+					"raw": "{\n  \"price\": 47.00\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/item/",
-					"protocol": "http",
+					"raw": "{{url}}/item/chair",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"item",
-						""
+						"chair"
 					]
 				},
 				"description": "update price in body"
@@ -141,15 +121,10 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/item/",
-					"protocol": "http",
+					"raw": "{{url}}/item/",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"item",
 						""
@@ -171,18 +146,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\": \"Jeff\",\n\t\"password\": \"Password1\"\n}"
+					"raw": "{\n  \"username\": \"Jeff\",\n  \"password\": \"Password1\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/register",
-					"protocol": "http",
+					"raw": "{{url}}/register",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
 						"register"
 					]
@@ -193,6 +163,21 @@
 		},
 		{
 			"name": "/auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bedf5ca3-fbee-4d46-ada0-28f3203f4db2",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Access token was not empty\"] = jsonData.access_token !== \"\";",
+							"",
+							"postman.setEnvironmentVariable(\"jwt_token\", jsonData.access_token)"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -206,17 +191,12 @@
 					"raw": "{\n\t\"username\": \"Jeff\",\n\t\"password\": \"Password1\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/register",
-					"protocol": "http",
+					"raw": "{{url}}/auth",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{url}}"
 					],
-					"port": "5000",
 					"path": [
-						"register"
+						"auth"
 					]
 				},
 				"description": "authorize an existing user"

@@ -7,7 +7,7 @@ cursur = connection.cursor()
 create_table = 'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username text, password text)'
 cursur.execute(create_table)
 
-create_table = 'CREATE TABLE IF NOT EXISTS items (name text, price real)'
+create_table = 'CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name text, price real)'
 cursur.execute(create_table)
 
 

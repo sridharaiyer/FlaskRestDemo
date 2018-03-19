@@ -50,14 +50,14 @@ class Item(Resource):
 
         item = ItemModel.find_by_name(name)
         updated_item = ItemModel(name, data['price'])
-        if item is None:
+        if item:
             try:
-                updated_item.insert()
+                updated_item.update()
             except:
                 return {'err_msg': 'An error occurred while inserting the item'}, 500
         else:
             try:
-                updated_item.update()
+                updated_item.insert()
             except:
                 return {'err_msg': 'An error occurred while updating the item'}, 500
 
