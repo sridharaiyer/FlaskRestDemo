@@ -34,7 +34,7 @@ class Item(Resource):
         item = ItemModel(name, **data)
         try:
             item.save_to_db()
-        except:
+        except Exception:
             return {'err_msg': 'An error occurred while inserting the item'}, 500
 
         return item.json(), 201
